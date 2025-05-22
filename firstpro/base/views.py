@@ -8,6 +8,8 @@ from .models import Room
 #     {'id': 3, 'name': 'Room 3'},
 # ]
 
+def main(request):
+    return render(request, 'main.html')
 def home(request):
     rooms = Room.objects.all()
     context = {'rooms': rooms}
@@ -16,5 +18,6 @@ def room(request, pk):
     room = Room.objects.get(id=pk)
     context = {'room': room}
     return render(request, 'room.html', context)
-def main(request):
-     return render(request, 'main.html')
+def room_form(request):
+    context = {}
+    return render(request, 'room_form.html', context)
