@@ -20,7 +20,7 @@ from base.views import home, room, room_form, main
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
+    path('', home, name='home'),
     path('room/<int:pk>/', room, name='room'),
     path('create-room/', room_form, name='create-room' )
 ]
