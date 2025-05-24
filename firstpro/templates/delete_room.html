@@ -1,0 +1,14 @@
+
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+<h3>are you share do you want to delete this {{ room.name }} ?</h3>
+<form method="POST" action="">
+    {% csrf_token %}
+    <input type="submit" value="Yes">
+    <a href="{% url 'home' %}">Cancel</a>
+</form>
+
+{% endblock %}

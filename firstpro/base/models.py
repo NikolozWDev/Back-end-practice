@@ -18,6 +18,9 @@ class Room(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-updated', '-created']
+
     def __str__(self):
         return f"{self.name} (Host: {self.host.username if self.host else 'No host'}, Topic: {self.topic.name if self.topic else 'No topic'})"
 
