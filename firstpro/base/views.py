@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Room, Topic
 from .form import RoomForm
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -14,6 +15,8 @@ def main(request):
 
 
 def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -47,6 +50,7 @@ def room(request, pk):
     context = {'room': room}
     return render(request, 'room.html', context)
 
+@login_required(login_url='login-register')
 def room_form(request):
     form = RoomForm()
     if request.method == 'POST':
@@ -57,9 +61,12 @@ def room_form(request):
     context = {'form': form}
     return render(request, 'room_form.html', context)
 
+@login_required(login_url='login-register')
 def update_room(request, pk):
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
+    if request.user != room.host:
+        return HttpResponse('you are not owner of this room!')
     if request.method == 'POST':
         form = RoomForm(request.POST, instance=room)
         if form.is_valid():
@@ -68,8 +75,11 @@ def update_room(request, pk):
     context = {'form': form}
     return render(request, 'room_form.html', context)
 
+@login_required(login_url='login-register')
 def delete_room(request, pk):
     room = Room.objects.get(id=pk)
+    if request.user != room.host:
+        return HttpResponse('you are not owner of this room!')
     if request.method == 'POST':
         room.delete()
         return redirect('home')
