@@ -19,14 +19,7 @@
 <div class="main-container">
 
     <div class="topics-section">
-        <h2>Topics</h2>
-        <hr>
-        <a href="{% url 'home' %}">ALL</a>
-        <div class="topics-names">
-            {% for topic in topics %}
-            <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
-            {% endfor %}
-        </div>
+        {% include 'topics-component.html' %}
     </div>
 
 
@@ -34,30 +27,23 @@
 
         <h1>home page</h1>
 
-<div>
-    <a href="{% url 'create-room' %}">Create Room</a>
-    <h3>{{room_count}} rooms is avaliable</h3>
-    <hr>
-</div>
+        <div>
+            <a href="{% url 'create-room' %}">Create Room</a>
+            <h3>{{room_count}} rooms is avaliable</h3>
+            <hr>
+        </div>
 
-<div>
-    {% for room in rooms %}
-    <div>
-        {% if request.user == room.host %}
-        <a href="{% url 'update-room' room.id %}">EDIT</a>
-        |
-        <a href="{% url 'delete-room' room.id %}">DELETE</a>
-        {% endif %}
-        <p>@{{room.host.username}}</p>
-        <a href="{% url 'room' room.id %}"><h4>{{room.id}} --- {{room.name}}</h4></a>
-        <h4>{{room.topic}}</h4>
-        <hr>
-    </div>
-    {% endfor %}
-
-</div>
+        <div>
+            {% include 'feed-component.html' %}
+        </div>
 
     </div>
+
+
+    <div class="activity-section">
+        {% include 'activity-component.html' %}
+    </div>
+
 
 </div>
 {% endblock %}
