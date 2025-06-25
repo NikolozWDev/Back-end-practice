@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .main-container {
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+    }
+    .topics-names {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+</style>
+
+<h1>{{user.username}}</h1>
+
+<div class="main-container">
+
+    <div class="topics-section">
+        {% include 'topics-component.html' %}
+    </div>
+
+    <div>
+        {% include 'feed-component.html' %}
+    </div>
+
+    <div>
+        {% include 'activity-component.html' %}
+    </div>
+
+</div>
+
+{% endblock %}

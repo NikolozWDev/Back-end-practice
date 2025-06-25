@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from base.views import home, room, room_form, main, update_room, delete_room, user_login, user_logout, delete_account, delete_message, register_page
+from base.views import home, room, room_form, main, update_room, delete_room, user_login, user_logout, delete_account, delete_message, register_page, user_profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +30,5 @@ urlpatterns = [
     path('update-room/<int:pk>/', update_room, name='update-room'),
     path('delete-room/<int:pk>/', delete_room, name='delete-room'),
     path('delete-message/<int:pk>/', delete_message, name='delete-message'),
+    path('user-profile/<int:pk>', user_profile, name='user-profile'),
 ]
